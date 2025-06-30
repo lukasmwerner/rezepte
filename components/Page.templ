@@ -30,7 +30,7 @@ templ Page(r models.Recipe) {
 	</html>
 }
 
-templ LandingPage(recipieFiles []string, recipies []models.Recipe) {
+templ LandingPage(title string, recipieFiles []string, recipies []models.Recipe) {
 	<!DOCTYPE html>
 	<html>
 		<head>
@@ -48,6 +48,9 @@ templ LandingPage(recipieFiles []string, recipies []models.Recipe) {
 			@input.Script()
 		</head>
 		<body class="p-10">
+			if title != "" {
+				<h2 class="text-center text-4xl m-2 font-semibold">{ title }</h2>
+			}
 			@input.Input(
 				input.Props{
 					Type:        input.TypeSearch,

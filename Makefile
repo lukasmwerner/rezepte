@@ -16,13 +16,17 @@ server:
     --misc.clean_on_exit true
 
 # Watch Tailwind CSS changes
-tailwind:
+tailwind-watch:
 	tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css --watch
+
+tailwind-build:
+	tailwindcss -i ./assets/css/input.css -o ./assets/css/output.css
 
 # Start development server with all watchers
 dev:
-	make -j3 tailwind templ-watch server
+	make -j3 tailwind-watch templ-watch server
 
 build:
 	make templ-build
+	make tailwind-build
 	go build .

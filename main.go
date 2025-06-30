@@ -84,7 +84,9 @@ func main() {
 		recipies_list = append(recipies_list, recipie)
 	}
 
-	http.Handle("/", templ.Handler(components.LandingPage(recipie_files, recipies_list)))
+	title, _ := os.LookupEnv("REZEPTE_TITLE")
+
+	http.Handle("/", templ.Handler(components.LandingPage(title, recipie_files, recipies_list)))
 
 	log.Println(http.ListenAndServe(":8080", nil))
 }
