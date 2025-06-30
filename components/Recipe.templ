@@ -1,0 +1,37 @@
+package components
+
+import "github.com/lukasmwerner/rezepte/components/card"
+import "github.com/lukasmwerner/rezepte/models"
+
+templ Recipe(r models.Recipe) {
+	<h1 class="text-4xl font-bold">{ r.Title }</h1>
+	<div class="w-fit my-2">
+		@card.Card() {
+			@card.Content() {
+				<span class="flex place-content-between">
+					<h2 class="font-semibold mr-2">Source</h2>
+					<p>{ r.Source }</p>
+				</span>
+				<span class="flex place-content-between">
+					<h2 class="font-semibold mr-2">Serves</h2>
+					<p>{ r.Serves }</p>
+				</span>
+				<span class="flex place-content-between">
+					<h2 class="font-semibold mr-2">Prep Time</h2>
+					<p>{ r.Time }</p>
+				</span>
+			}
+		}
+	</div>
+	<div class="instructions">
+		@templ.Raw(r.Contents)
+	</div>
+	<style>
+	.instructions {
+		h1 {font-size: 30pt; weight: 600;}
+		h2 {font-size: 25pt; weight: 600;}
+		ul {list-style: inside circle; margin: 0.5em;}
+		p {margin: 0.5em;}
+	}
+	</style>
+}

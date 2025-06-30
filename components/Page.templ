@@ -1,0 +1,123 @@
+package components
+
+import (
+	"github.com/lukasmwerner/rezepte/components/card"
+	"github.com/lukasmwerner/rezepte/components/input"
+	"github.com/lukasmwerner/rezepte/models"
+)
+
+templ Page(r models.Recipe) {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<!-- Tailwind CSS (output) -->
+			<link href="/assets/css/output.css" rel="stylesheet"/>
+			<title>{ r.Title }</title>
+			<style>
+			::view-transition-old(root),
+			::view-transition-new(root) {
+			  animation-duration: 0.5s;
+			}
+			</style>
+		</head>
+		<body class="p-10 flex flex-col items-center">
+			<div class="max-w-6/10 print:max-w-none">
+				@Recipe(r)
+			</div>
+		</body>
+	</html>
+}
+
+templ LandingPage(recipieFiles []string, recipies []models.Recipe) {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<!-- Tailwind CSS (output) -->
+			<link href="/assets/css/output.css" rel="stylesheet"/>
+			<title>Recipies</title>
+			<style>
+			::view-transition-old(root),
+			::view-transition-new(root) {
+			  animation-duration: 0.5s;
+			}
+			</style>
+			@input.Script()
+		</head>
+		<body class="p-10">
+			@input.Input(
+				input.Props{
+					Type:        input.TypeSearch,
+					Placeholder: "Search",
+				},
+			)
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 m-5" id="cards">
+				for i, recipie := range recipies {
+					<div class="w-full h-full" id="card" data-title={ recipie.Title } data-time={ recipie.Time } data-source={ recipie.Source } data-serves={ recipie.Serves } data-contents={ recipie.Contents }>
+						@card.Card(card.Props{Class: "h-full w-full"}) {
+							@card.Header() {
+								@card.Title() {
+									<a href={ "/recipie/" + recipieFiles[i] }>{ recipie.Title }</a>
+								}
+								@card.Description() {
+									{ recipie.Source }
+								}
+							}
+							@card.Content() {
+								Time: { recipie.Time }
+								<br/>
+								Serves: { recipie.Serves }
+							}
+						}
+					</div>
+				}
+			</div>
+			<script>
+				let cards = [];
+				let cardElements = document.querySelectorAll("#card");
+				for (const card of cardElements) {
+					cards.push({
+						title: card.dataset.title,
+						time: card.dataset.time,
+						serves: card.dataset.serves,
+						source: card.dataset.source,
+						contents: card.dataset.contents,
+						html: card.cloneNode(true),
+					})
+				}
+				let debounceTimer;
+				document.querySelector("input[type=search]").addEventListener('input', (e)=> {
+					clearTimeout(debounceTimer);
+					debounceTimer = setTimeout(() => {
+						filterResults(e.target.value);
+					}, 300);
+				});
+
+				function filterResults(search_query) {
+					let query = search_query.toLowerCase();
+					let filtered = cards.filter((card)=>{
+						return card.title.toLowerCase().includes(query) ||
+							card.time.toLowerCase().includes(query) ||
+							card.serves.toLowerCase().includes(query) ||
+							card.source.toLowerCase().includes(query) ||
+							card.contents.toLowerCase().includes(query);
+					}).sort((a, b) => {
+						let aTitle = a.title.toLowerCase().includes(query);
+						let bTitle = b.title.toLowerCase().includes(query);
+						if (aTitle && !bTitle) return -1;
+						if (!aTitle && bTitle) return 1;
+						return 0;
+					});
+					let container = document.querySelector("#cards")
+					container.innerHTML = '';
+					for (const card of filtered) {
+						container.appendChild(card.html);
+					}
+				}
+			</script>
+		</body>
+	</html>
+}
