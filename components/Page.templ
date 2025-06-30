@@ -49,7 +49,7 @@ templ LandingPage(title string, recipieFiles []string, recipies []models.Recipe)
 		</head>
 		<body class="p-10">
 			if title != "" {
-				<h2 class="text-center text-4xl m-2 font-semibold">{ title }</h2>
+				<h2 class="text-4xl m-2 font-semibold">{ title }</h2>
 			}
 			@input.Input(
 				input.Props{
