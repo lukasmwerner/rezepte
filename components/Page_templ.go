@@ -48,7 +48,7 @@ func Page(r models.Recipe) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/assets/images/apple-touch-icon.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/assets/images/favicon-32x32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/assets/images/favicon-16x16.png\"><link rel=\"manifest\" href=\"/assets/site.webmanifest\"><style>\n\t\t\t::view-transition-old(root),\n\t\t\t::view-transition-new(root) {\n\t\t\t  animation-duration: 0.5s;\n\t\t\t}\n\t\t\t</style></head><body class=\"p-10 flex flex-col items-center\"><div class=\"max-w-6/10 print:max-w-none\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</title><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/assets/images/apple-touch-icon.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/assets/images/favicon-32x32.png\"><link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/assets/images/favicon-16x16.png\"><link rel=\"manifest\" href=\"/assets/site.webmanifest\"><style>\n\t\t\t::view-transition-old(root),\n\t\t\t::view-transition-new(root) {\n\t\t\t  animation-duration: 0.5s;\n\t\t\t}\n\t\t\t</style></head><body class=\"p-10 flex flex-col items-center\"><div class=\"md:max-w-6/10 print:max-w-none\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

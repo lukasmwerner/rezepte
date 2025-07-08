@@ -10,15 +10,15 @@ templ Recipe(r models.Recipe) {
 			@card.Content() {
 				<span class="flex place-content-between">
 					<h2 class="font-semibold mr-2">Source</h2>
-					<p>{ r.Source }</p>
+					<p class="text-right">{ r.Source }</p>
 				</span>
 				<span class="flex place-content-between">
 					<h2 class="font-semibold mr-2">Serves</h2>
-					<p>{ r.Serves }</p>
+					<p class="text-right">{ r.Serves }</p>
 				</span>
 				<span class="flex place-content-between">
 					<h2 class="font-semibold mr-2">Prep Time</h2>
-					<p>{ r.Time }</p>
+					<p class="text-right">{ r.Time }</p>
 				</span>
 			}
 		}
